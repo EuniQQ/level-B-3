@@ -95,11 +95,13 @@ display:none;
           <div class="controls">
             <div class="left"></div> <!-- 左箭頭 -->
             <div class="icons">
+              <?php
             foreach($pos as $key =>$po){
               echo "<div class='po' >";
               echo "<img src='img/{$po['path']}'>";
               echo "</div>";
             }
+            ?>
             </div>
             <div class="right"></div> <!-- 右箭頭 -->
           </div>
