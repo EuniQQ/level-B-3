@@ -18,7 +18,8 @@ text-align:center;
 display:none;
 }
 
-.po img{
+.po img,
+{
   width:100%;
   border:2px solid white;
 }
@@ -34,12 +35,17 @@ display:none;
 .icons{
   display:flex;
   width:320px;
-  height:90px;
+  height:110px;
+  overflow:hidden;
+  font-size: 12px;
+  position:relative;
 }
 
 .icon{
   width:80px;
-  height:20px;
+  flex-shrink: 0; /* 子元素不改變寬度 */
+  padding:5px;
+
 }
 
 .left{
@@ -78,7 +84,7 @@ display:none;
             <?php
             $pos=$Poster->all("WHERE `sh` =1 Order By `rank`");
             foreach($pos as $key =>$po){
-              echo "<div>";
+              echo "<div class='po' >";
               echo "<img src='img/{$po['path']}'>";
               echo "</div>";
             }
@@ -89,10 +95,11 @@ display:none;
           <div class="controls">
             <div class="left"></div> <!-- 左箭頭 -->
             <div class="icons">
-              <div class="icons">sss</div>
-              <div class="icons">sss</div>
-              <div class="icons">sss</div>
-              <div class="icons">sss</div>
+            foreach($pos as $key =>$po){
+              echo "<div class='po' >";
+              echo "<img src='img/{$po['path']}'>";
+              echo "</div>";
+            }
             </div>
             <div class="right"></div> <!-- 右箭頭 -->
           </div>
@@ -102,6 +109,75 @@ display:none;
     </div>
 
     <script>
-      // 只讓第一張poster顯示
-      $(".po").eq(0).show(); 
+    // 只讓第一張poster顯示
+    $(".po").eq(0).show(); 
+    let i=0;
+    let all=$('.po').length;
+
+    let slides=setInterval(() => {
+        i++;
+        if(i>all-1){
+          i=0;
+        }
+        ani(i);
+
+    },2500); // 每2.5秒換一張圖
+    //間隔的時間建議比動畫的時間長
+
+  function ani(n){
+  let ani=$(".po").eq(n).date('ani');
+  let now=$(".po:visible");
+  let next=$(".po").eq(n);
+
+  switch(ani){
+    case 1:
+      //淡入淡出
+      now.fadeOut(1000);
+      next.fadeIn(1000);
+      break;
+      case 2:
+      //縮放
+      now.hide(1000,function(){
+      next.show(1000);
+      });
+      break;
+      case3:
+      //滑入滑出
+      now.slideUp(1000,function(){
+        next.slideDown(1000);
+      })
+      break;
+  }
+}
+
+let p=0;
+$(".left,.right").on("click",function(){
+  if($(this).hasClass('left')){
+      if(p-1 >= 0 ){
+        p--;
+      }
+  }else{
+    if(p+1<=all-4){ //下一頁時，若小於扣掉現在顯示的4張圖所剩的數量
+      p++;
+    }
+  }
+  $("icon").animate({right:p*80},500)
+})
+
+$(".icon").on("click",function(){
+  clearInterval(slides)
+  let idx = $(this).index() //宣告我所點選的圖是在順序中的第幾張
+  ani(idx)
+
+  i=idx
+
+  slides=setInterval(() =>{
+    i++;
+    if(i>all-1){
+      i=0;
+    }
+    ani(i);
+    },2500);
+})
+
     </script>
