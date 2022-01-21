@@ -4,7 +4,7 @@ session_start();
 
 
 class DB{
-    protected $dsn="mysql:host=localhost;charset=utf8;dbname=web03";
+    protected $dsn="mysql:host=localhost;charset=utf8;dbname=web23";
     protected $user="root";
     protected $pw='';
     protected $pdo;
