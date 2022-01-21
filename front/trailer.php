@@ -1,6 +1,6 @@
 <style>
   .lists *,
-  .control * {
+  .controls * {
     box-sizing:border-box;
   }
 
@@ -9,6 +9,7 @@
   height:260px;
   margin:auto;
   overflow:hidden;
+  position:relative;
 }
 
 /* lists下面的po */
@@ -16,10 +17,11 @@
 width:100%;
 text-align:center;
 display:none;
+position:absolute;
 }
 
 .po img,
-{
+.icon img{
   width:100%;
   border:2px solid white;
 }
@@ -38,19 +40,18 @@ display:none;
   height:110px;
   overflow:hidden;
   font-size: 12px;
-  position:relative;
+
 }
 
 .icon{
   width:80px;
   flex-shrink: 0; /* 子元素不改變寬度 */
   padding:5px;
-
+  position:relative;
 }
 
 .left{
   /* 換頁箭頭 */
-  width:50px;
   border-top:20px solid transparent; /* transparent=透明 */
   border-right:25px solid black;
   border-bottom:20px solid transparent;
@@ -59,7 +60,6 @@ display:none;
 }
 
 .right{
-  width:30px;
   border-top:20px solid transparent;
   /* border-top:10px solid transparent; */
   border-bottom:20px solid transparent;
@@ -84,8 +84,10 @@ display:none;
             <?php
             $pos=$Poster->all("WHERE `sh` =1 Order By `rank`");
             foreach($pos as $key =>$po){
-              echo "<div class='po' >";
+              echo "<div class='po' date-ani='{$po['ani']}>";
               echo "<img src='img/{$po['path']}'>";
+              echo $po['name'];
+
               echo "</div>";
             }
 
@@ -96,9 +98,10 @@ display:none;
             <div class="left"></div> <!-- 左箭頭 -->
             <div class="icons">
               <?php
-            foreach($pos as $key =>$po){
-              echo "<div class='po' >";
+            foreach($pos as $key => $po){
+              echo "<div class='icon' date-ani='{$po['ani']}'>";
               echo "<img src='img/{$po['path']}'>";
+              echo $po['name'];
               echo "</div>";
             }
             ?>
@@ -158,12 +161,14 @@ $(".left,.right").on("click",function(){
       if(p-1 >= 0 ){
         p--;
       }
+
   }else{
-    if(p+1<=all-4){ //下一頁時，若小於扣掉現在顯示的4張圖所剩的數量
+    if(p+1<=all-4){  //下一頁時，若小於扣掉現在顯示的4張圖所剩的數量
       p++;
     }
   }
-  $("icon").animate({right:p*80},500)
+
+  $(".icon").animate({right:p*80},500)
 })
 
 $(".icon").on("click",function(){
@@ -173,7 +178,7 @@ $(".icon").on("click",function(){
 
   i=idx
 
-  slides=setInterval(() =>{
+  slides=setInterval(() => {
     i++;
     if(i>all-1){
       i=0;
