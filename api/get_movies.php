@@ -1,5 +1,5 @@
 <?php include_once "../base.php";
-
+$id=$_GET['id'];
 $today=date("Y-m-d");
 $ondate=date("Y-m-d",strtotime("-2 days"));
 

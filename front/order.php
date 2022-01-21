@@ -46,9 +46,19 @@
 </div>
 
 <script>
+let id=(new URL(location)).searchParams.get('id');
+getMovies(id)
+
+function getMovies(id){
+    $.get("api/get_movies.php",{id},
+    (movies)=>{
+        $("#movie").html
+    })
+    }
 $get("api/get_movies.php",(movies)=>{
     $("#movie").html(movies)
 })
+
 
 
 
