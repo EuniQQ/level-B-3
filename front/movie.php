@@ -68,7 +68,7 @@ $rows=$Movie->all(" where `sh`=1 && `ondate` AND '$today'
     
     <div class="ct">
       <?php
-      if(($now-1)>1){
+      if(($now-1)>=1){
         $prev=$now-1;
         echo "<a href='index.php?p=$prev'>";
         echo " < ";
