@@ -20,7 +20,7 @@ $Ord->save([
 
 <style>
     #order{
-        width:50%;
+        width:60%;
         margin:auto;
     }
     .row{
@@ -28,7 +28,7 @@ $Ord->save([
         width:100%;
     }
     .row .first{
-        width:15%;
+        width:20%;
         text-align: right;
     }
     .row .sec{
@@ -46,7 +46,7 @@ $Ord->save([
 <div id="order">
     <div class="row">
         <div class="sec">
-            感謝您的訂購，您的訂單班號是：<?=$no;?>
+            感謝您的訂購，您的訂單編號是：<?=$no;?>
         </div>
     </div>
 
